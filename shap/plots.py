@@ -1,5 +1,5 @@
-""" Plots for feature attributions.
-"""
+"""Plots for feature attributions."""
+
 
 import warnings
 
@@ -10,6 +10,7 @@ from iml.datatypes import DenseData
 from iml.explanations import AdditiveExplanation
 from iml.links import IdentityLink
 from scipy.stats import gaussian_kde
+
 
 try:
     import matplotlib.pyplot as pl
@@ -617,7 +618,7 @@ def summary_plot(shap_values, features=None, feature_names=None, max_display=Non
         global_shap_values = np.abs(shap_values).mean(0)
         pl.barh(y_pos, global_shap_values[feature_inds], 0.7, align='center', color=color)
         pl.yticks(y_pos, fontsize=13)
-        pl.gca().set_yticklabels([feature_names[i] for i in feature_inds])
+        pl.gca().set_yticklabels([feature_names[i] for i in feature_inds]) 
 
     elif multi_class and plot_type == "bar":
         if class_names is None:
@@ -676,7 +677,9 @@ def summary_plot(shap_values, features=None, feature_names=None, max_display=Non
     else:
         pl.xlabel(labels['VALUE'], fontsize=13)
     if show:
+        pl.tight_layout()
         pl.show()
+    return feature_order, feature_names, features, shap_values
 
 
 def visualize(shap_values, features=None, feature_names=None, out_names=None, data=None,
